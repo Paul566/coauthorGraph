@@ -19,7 +19,7 @@ def getnet():
         edges = set()
         for l in list_edges:
             edges.add((l[0], l[1]))
-        cnt = len(ids_to_names)
+        cnt = len(ids_to_names) - len(queue)
     else:
         if not (os.path.isfile('ids_to_names.json')) and not (os.path.isfile('edges.json')) and not (os.path.isfile('queue.json')):
             cnt = 0
