@@ -10,9 +10,9 @@ an isolated node and he belongs to the connected component I focus on. <br />
 The process of breadth-first search is still running, but the properties of the currently observable part of the network are given below.
 
 ### Basic properties of the network
-Number of nodes: 143574 <br />
-Number of edges: 303679 <br />
-Maximal Erdos number (the maximal distance from Paul Erdos to some other node): 10
+Number of nodes: 245660 <br />
+Number of edges: 559700 <br />
+Maximal Erdos number (the maximal distance from Paul Erdos to some other node): 11
 
 ### Properties connected to the spectrum of the graph
 In this section, I focus on the spectrum of the Laplace matrix of the graph. Eigen and Spectra packages are used. 
