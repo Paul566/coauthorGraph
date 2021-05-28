@@ -19,8 +19,8 @@ In this section, I focus on the spectrum of the Laplace matrix of the graph. Eig
 It is known that all eigenvalues of the Laplace matrix of a graph are non-negative and there is a zero eigenvalue that corresponds to (1, 1, 1, ... 1) eigenvector. 
 If the graph is connected (which is our case), all other eigenvalues are positive. Unfortunately, computing all the eigenvalues of a given matrix NxN costs 
 N<sup>3</sup> operations, which is far too long in our case, so I only compute the spectral gap of the graph, which is the difference between the first and the 
-second eigenvalues (equals to the second eigenvalue itself since the first one is zero). The first and the second computed eigenvalues are -0.000016 and 0.01895. The first value is meant to be exactly zero, but it differs a bit due to a numerical error. So the spectral gap equals to 0.01895. <br />
+second eigenvalues (equals to the second eigenvalue itself since the first one is zero). The first and the second computed eigenvalues are -0.0002 and 0.0101. The first value is meant to be exactly zero, but it differs a bit due to a numerical error. So the spectral gap equals to 0.0101. <br />
 Next, I try to estimate the Cheeger constant h, which measures the 'bottleneckedness' of the graph. In our case, a small Cheeger constant would mean the 
 presence of two large poorly connected communities. Determining the Cheeger constant exactly is an NP-hard problem, so perhaps no one will ever find the exact value of the Cheeger constant for the Google Scholar co-authorship graph. But we can set some boundaries for h. First, using Cheeger's inequality <br />
 <img src="https://latex.codecogs.com/gif.latex?\frac{\lambda_2}{2}\leq&space;h\leq\sqrt{2\lambda_2}" /> <br />
-we have h between 0.0095 and 0.195.
+we have h between 0.0051 and 0.142.
