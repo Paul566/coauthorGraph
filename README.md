@@ -10,17 +10,17 @@ an isolated node and he belongs to the connected component I focus on. <br />
 The process of breadth-first search is still running, but the properties of the currently observable part of the network are given below.
 
 ### Basic properties of the network
-Number of nodes: 245660 <br />
-Number of edges: 559700 <br />
-Maximal Erdos number (the maximal distance from Paul Erdos to some other node):
+Number of nodes: 143574 <br />
+Number of edges: 303679 <br />
+Maximal Erdos number (the maximal distance from Paul Erdos to some other node): 10
 
 ### Properties connected to the spectrum of the graph
 In this section, I focus on the spectrum of the Laplace matrix of the graph. Eigen and Spectra packages are used. 
 It is known that all eigenvalues of the Laplace matrix of a graph are non-negative and there is a zero eigenvalue that corresponds to (1, 1, 1, ... 1) eigenvector. 
 If the graph is connected (which is our case), all other eigenvalues are positive. Unfortunately, computing all the eigenvalues of a given matrix NxN costs 
-N^3 operations, which is far too long in our case, so I only compute the spectral gap of the graph, which is the difference between the first and the 
-second eigenvalues (equals to the second eigenvalue itself since the first one is zero). The first and the second computed eigenvalues are ... and ... <br />
+N<sup>3</sup> operations, which is far too long in our case, so I only compute the spectral gap of the graph, which is the difference between the first and the 
+second eigenvalues (equals to the second eigenvalue itself since the first one is zero). The first and the second computed eigenvalues are -0.000016 and 0.01895. The first value is meant to be exactly zero, but it differs a bit due to a numerical error. So the spectral gap equals to 0.01895. <br />
 Next, I try to estimate the Cheeger constant h, which measures the 'bottleneckedness' of the graph. In our case, a small Cheeger constant would mean the 
-presence of two large poorly connected communities. Determining the Cheeger constant exactly is an NP-hard problem, meaning no one will ever find it for 
-the Google Scholar co-authorship graph. But we can set some boundaries for h. First, use Cheeger's inequality
-lambda2/2 <= h <= sqrt(2 lambda2) to obtain ... <= h <= ...
+presence of two large poorly connected communities. Determining the Cheeger constant exactly is an NP-hard problem, so perhaps no one will ever find the exact value of the Cheeger constant for the Google Scholar co-authorship graph. But we can set some boundaries for h. First, using Cheeger's inequality <br />
+<img src="https://latex.codecogs.com/gif.latex?\frac{\lambda_2}{2}\leq&space;h\leq\sqrt{2\lambda_2}" /> <br />
+we have h between 0.0095 and 0.195.
