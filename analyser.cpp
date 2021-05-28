@@ -87,20 +87,20 @@ spectrum(int n, std::vector<std::vector<int>> adjList) {
     int size = adjList.size();
     Eigen::SparseMatrix<float> M(size, size);
     M.reserve(Eigen::VectorXi::Constant(M.cols(), 10)); //"10" is almost surely twice greater than average degree of a node
-    std::cout << "im fine\n";
     for (int i = 0; i < size; i++) {
         M.insert(i, i) = adjList[i].size();
         for (int to : adjList[i]) {
             M.insert(i, to) = -1;
         }
     }
-    std::cout << "im fine\n";
     Spectra::SparseSymMatProd<float> op(M);
-    std::cout << "im fine\n";
-    Spectra::SymEigsSolver<float, Spectra::SMALLEST_ALGE, Spectra::SparseSymMatProd<float>> eigs(&op, n, 1000); //1000 >= n
-    std::cout << "im fine\n";
+    int ncv = 200;
+    int maxit = 10;
+    float tol = 0.0001;
+    Spectra::SymEigsSolver<float, Spectra::SMALLEST_ALGE, Spectra::SparseSymMatProd<float>> eigs(&op, n, ncv);
+    std::cout << "ncv: " << ncv << ", maxit: " << maxit << ", tol: " << tol << "\n";
     eigs.init();
-    eigs.compute(10, 0.001);
+    eigs.compute(maxit, tol);
     return eigs;
 }
 
@@ -120,7 +120,6 @@ int main() {
     std::cout << "Eigenvalues found:\n" << evalues << std::endl;
     std::cout << "num iterations: " << eigs.num_iterations() << '\n';
     std::cout << "num operations: " << eigs.num_operations() << '\n';
-
 
     return 0;
 }
