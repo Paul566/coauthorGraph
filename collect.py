@@ -4,7 +4,7 @@ import json
 import igraph
 import html
 import os.path
-
+from collections import deque
 
 def getnet():
     templateurl = 'https://scholar.google.com/citations?user='
@@ -15,7 +15,7 @@ def getnet():
         with open('edges.json') as f:
             list_edges = json.load(f)
         with open('queue.json') as f:
-            queue = json.load(f)
+            queue = deque(json.load(f))
         edges = set()
         for l in list_edges:
             edges.add((l[0], l[1]))
@@ -25,13 +25,13 @@ def getnet():
             cnt = 0
             ids_to_names = {'zbtQMR8AAAAJ': 'Andronick Arutyunov'}
             edges = set()
-            queue = ['zbtQMR8AAAAJ']
+            queue = deque(['zbtQMR8AAAAJ'])
         else:
             print("some json files are found but not all of them")
             return
 
     while queue:
-        curid = queue.pop(0)
+        curid = queue.popleft()
         print(cnt, len(queue), "%.3f" % (len(queue) / (cnt + 1)), curid, ids_to_names[curid])
         cnt += 1
         r = html.unescape(requests.get(templateurl + curid).text)
@@ -57,13 +57,13 @@ def getnet():
             with open('edges.json', 'w') as f:
                 json.dump(list(edges), f)
             with open('queue.json', 'w') as f:
-                json.dump(queue, f)
+                json.dump(list(queue), f)
     with open('ids_to_names.json', 'w') as f:
         json.dump(ids_to_names, f)
     with open('edges.json', 'w') as f:
         json.dump(list(edges), f)
     with open('queue.json', 'w') as f:
-        json.dump(queue, f)
+        json.dump(list(queue), f)
 
 
 
