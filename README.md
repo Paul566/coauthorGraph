@@ -15,12 +15,12 @@ Number of edges: 559700 <br />
 Maximal Erdos number (the maximal distance from Paul Erdos to some other node): 11
 
 ### Properties connected to the spectrum of the graph
-In this section, I focus on the spectrum of the Laplace matrix of the graph. Eigen and Spectra packages are used. 
-It is known that all eigenvalues of the Laplace matrix of a graph are non-negative and there is a zero eigenvalue that corresponds to (1, 1, 1, ... 1) eigenvector. 
-If the graph is connected (which is our case), all other eigenvalues are positive. Unfortunately, computing all the eigenvalues of a given matrix NxN costs 
+In this section, I focus on the spectrum of the [normalized Laplacian matrix](https://en.wikipedia.org/wiki/Laplacian_matrix#Symmetric_normalized_Laplacian) of the graph. I used Eigen and Spectra packages to compute the eigenvalues and the eigenvectors. <br />
+It is known that all eigenvalues of the normalized Laplacian matrix of a graph are non-negative and there is a zero eigenvalue that corresponds to (sqrt(d<sub>1</sub>), sqrt(d<sub>2</sub>), ... sqrt(d<sub>n</sub>)) eigenvector, where d<sub>i</sub> are the degrees of the vertices. If the graph is connected (which is our case), all other eigenvalues are positive. Unfortunately, computing all the eigenvalues of a given matrix NxN costs 
 N<sup>3</sup> operations, which is far too long in our case, so I only compute the spectral gap of the graph, which is the difference between the first and the 
-second eigenvalues (equals to the second eigenvalue itself since the first one is zero). The first and the second computed eigenvalues are -0.0002 and 0.0101. The first value is meant to be exactly zero, but it differs a bit due to a numerical error. So the spectral gap equals to 0.0101. <br />
-Next, I try to estimate the Cheeger constant h, which measures the 'bottleneckedness' of the graph. In our case, a small Cheeger constant would mean the 
+second eigenvalues (equals to the second eigenvalue itself since the first one is zero). The first and the second computed eigenvalues are 6.4e-15 and 0.00394756475392. The first value is meant to be exactly zero, but it differs a bit due to a numerical error. So the spectral gap equals to 0.00394756475392. <br />
+Next, I try to estimate the Cheeger constant h, which measures the 'bottleneckedness' of the graph (defined, for example, [here](https://orion.math.iastate.edu/butler/PDF/spectra_lecture_3.pdf)). In our case, a small Cheeger constant would mean the 
 presence of two large poorly connected communities. Determining the Cheeger constant exactly is an NP-hard problem, so perhaps no one will ever find the exact value of the Cheeger constant for the Google Scholar co-authorship graph. But we can set some boundaries for h. First, using Cheeger's inequality <br />
 <img src="https://latex.codecogs.com/gif.latex?\frac{\lambda_2}{2}\leq&space;h\leq\sqrt{2\lambda_2}" /> <br />
-we have h between 0.0051 and 0.142.
+we have 0.00197 < h < 0.0889. <br />
+Next, I try to set a better upper limit for h by getting a decently sparse cut of the graph. I use spectral partitioning (described, for example, [here](https://people.orie.cornell.edu/dpw/orie6334/Fall2016/lecture7.pdf)) since I already have the second eigenvector of the normalized Laplacian matrix. The least conductance found with spectral partitioning is 0.2237, so h < 0.2237. This upper estimate is weaker than what we had with Cheeger inequality, so the spectral partitioning hasn't provided us with a better estimation of the Cheeger constant.
