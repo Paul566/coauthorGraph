@@ -10,17 +10,17 @@ an isolated node and he belongs to the connected component I focus on. <br />
 The process of breadth-first search is still running, but the properties of the currently observable part of the network are given below.
 
 ### Basic properties of the network
-Number of nodes: 395242 <br />
-Number of edges: 1087595 <br />
+Number of nodes: 726999 <br />
+Number of edges: 2532172 <br />
 Maximal Erdos number (the maximal distance from Paul Erdos to some other node): 10
 
 ### Properties connected to the spectrum of the graph
 In this section, I focus on the spectrum of the [normalized Laplacian matrix](https://en.wikipedia.org/wiki/Laplacian_matrix#Symmetric_normalized_Laplacian) of the graph. I used Eigen and Spectra packages to compute the eigenvalues and the eigenvectors. <br />
 It is known that all eigenvalues of the normalized Laplacian matrix of a graph are non-negative and there is a zero eigenvalue that corresponds to (sqrt(d<sub>1</sub>), sqrt(d<sub>2</sub>), ... sqrt(d<sub>n</sub>)) eigenvector, where d<sub>i</sub> are the degrees of the vertices. If the graph is connected (which is our case), all other eigenvalues are positive. Unfortunately, computing all the eigenvalues of a given matrix NxN costs 
 N<sup>3</sup> operations, which is far too long in our case, so I only compute the spectral gap of the graph, which is the difference between the first and the 
-second eigenvalues (equals to the second eigenvalue itself since the first one is zero). The first and the second computed eigenvalues are 6.2e-17 and 0.00466516601971. The first value is meant to be exactly zero, but it differs a bit due to a numerical error. So the spectral gap equals to 0.00466516601971. <br />
+second eigenvalues (equals to the second eigenvalue itself since the first one is zero). The first and the second computed eigenvalues are 1.6e-15 and 0.0065977627023. The first value is meant to be exactly zero, but it differs a bit due to a numerical error. So the spectral gap equals to 0.0065977627023. <br />
 Next, I try to estimate the Cheeger constant h, which measures the 'bottleneckedness' of the graph (defined, for example, [here](https://orion.math.iastate.edu/butler/PDF/spectra_lecture_3.pdf)). In our case, a small Cheeger constant would mean the 
 presence of two large poorly connected communities. Determining the Cheeger constant exactly is an NP-hard problem, so perhaps no one will ever find the exact value of the Cheeger constant for the Google Scholar co-authorship graph. But we can set some boundaries for h. First, using Cheeger's inequality <br />
 <img src="https://latex.codecogs.com/gif.latex?\frac{\lambda_2}{2}\leq&space;h\leq\sqrt{2\lambda_2}" /> <br />
-we have 0.00233 < h < 0.0966. <br />
-Next, I try to set a better upper limit for h by getting a decently sparse cut of the graph. I use spectral partitioning (described, for example, [here](https://people.orie.cornell.edu/dpw/orie6334/Fall2016/lecture7.pdf)) since I already have the second eigenvector of the normalized Laplacian matrix. The least conductance found with spectral partitioning is 0.1983, so h < 0.1983. This upper estimate is weaker than what we had with Cheeger inequality, so the spectral partitioning hasn't provided us with a better estimation of the Cheeger constant.
+we have 0.00329 < h < 0.115. <br />
+Next, I try to set a better upper limit for h by getting a decently sparse cut of the graph. I use spectral partitioning (described, for example, [here](https://people.orie.cornell.edu/dpw/orie6334/Fall2016/lecture7.pdf)) since I already have the second eigenvector of the normalized Laplacian matrix. The least conductance found with spectral partitioning is 0.2972, so h < 0.2972. This upper estimate is weaker than what we had with Cheeger inequality, so the spectral partitioning hasn't provided us with a better estimation of the Cheeger constant.
