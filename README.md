@@ -24,3 +24,7 @@ presence of two large poorly connected communities. Determining the Cheeger cons
 <img src="https://latex.codecogs.com/gif.latex?\frac{\lambda_2}{2}\leq&space;h\leq\sqrt{2\lambda_2}" /> <br />
 we have 0.00439 < h < 0.133. <br />
 Next, I try to set a better upper limit for h by getting a decently sparse cut of the graph. I use spectral partitioning (described, for example, [here](https://people.orie.cornell.edu/dpw/orie6334/Fall2016/lecture7.pdf)) since I already have the second eigenvector of the normalized Laplacian matrix. The least conductance found with spectral partitioning is 0.02703, so h < 0.02703. This corresponds to a small community of 37 people which has only one edge connecting them to the rest of the graph. This upper estimate is stronger than what we had with Cheeger inequality, so the final estimation is 0.00439 < h < 0.027.
+
+### The degree distribution of the graph.
+![](degHist.png)
+This is the plot of the probability of finding a vertex of a given degree for the GS coauthorship graph and Erdos-Renyi random graph with the same number of vertices and edges. As one can see, the GS coauthorship graph has a huge amount of leaves, in fact, 35% of all profiles (in the connected component I am focusing on). There is also an increase in the density of vertices at degree 20, which I can't explain.
