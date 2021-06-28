@@ -30,11 +30,13 @@ def getnet():
             print("some json files are found but not all of them")
             return
 
+    s = requests.Session()
+
     while queue:
         curid = queue.popleft()
         print(cnt, len(queue), "%.3f" % (len(queue) / (cnt + 1)), curid, ids_to_names[curid])
         cnt += 1
-        r = html.unescape(requests.get(templateurl + curid).text)
+        r = html.unescape(s.get(templateurl + curid).text)
         if not r:
             print("Error", r.status_code)
             print("Breaking")
@@ -51,7 +53,7 @@ def getnet():
                 name += r[i]
                 i += 1
             ids_to_names[id] = name
-        if cnt % 100 == 0:
+        if cnt % 1000 == 0:
             with open('ids_to_names.json', 'w') as f:
                 json.dump(ids_to_names, f)
             with open('edges.json', 'w') as f:

@@ -216,7 +216,7 @@ int main() {
     std::cout << edges.size() << " edges\n";
     std::string erdosId = "cVeVZ1YAAAAJ";
     std::cout << "Max Erdos numer " << findLargestErdosNumber(adjList, idsToIndices[erdosId]) << '\n';
-    //writeV2L2(adjList);
+    writeV2L2(adjList);
     auto v2 = readV2();
     auto sd = spectralDecomposition(adjList, v2);
     std::cout << "Cheeger constant is less or equals to " << sd.first << " with " << sd.second
