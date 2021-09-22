@@ -7,7 +7,6 @@ profile page. So, it is possible for two authors to be co-authors in real life b
 [Terence Tao](https://scholar.google.com/citations?user=TFx_gLQAAAAJ&hl=en&oi=ao) has zero
 co-authors. But he is listed as a co-author of [Emmanuel Candes](https://scholar.google.com/citations?user=nRQi4O8AAAAJ&hl=en&oi=sra), so he is not 
 an isolated node and he belongs to the connected component I focus on. <br />
-The process of breadth-first search is still running, but the properties of the currently observable part of the network are given below.
 
 ### Basic properties of the network
 Number of nodes: 969,559 <br />
