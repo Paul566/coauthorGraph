@@ -1,7 +1,5 @@
 #include "Analyser.h"
 
-using json = nlohmann::json;
-
 Analyser::Analyser(const std::string &filename) {
     std::cout << "creating the adjacency list...\n";
     json input;
@@ -9,7 +7,7 @@ Analyser::Analyser(const std::string &filename) {
     file >> input;
     std::vector<std::pair<std::string, std::string>> edges = input.get<std::vector<std::pair<std::string, std::string>>>();
     std::unordered_map<std::string, int> idsToIndices;
-    for (const auto& edge: edges) {
+    for (const auto &edge: edges) {
         int index1, index2;
         if (idsToIndices.find(edge.first) == idsToIndices.end()) {
             index1 = adjList.size();
@@ -27,20 +25,30 @@ Analyser::Analyser(const std::string &filename) {
             adjList.push_back(std::vector<int>(0));
         } else
             index2 = idsToIndices[edge.second];
-        if (find(adjList[index1].begin(), adjList[index1].end(), index2) == adjList[index1].end()) //to avoid duplicate edges
+        if (find(adjList[index1].begin(), adjList[index1].end(), index2) ==
+            adjList[index1].end()) //to avoid duplicate edges
             adjList[index1].push_back(index2);
         if (find(adjList[index2].begin(), adjList[index2].end(), index1) == adjList[index2].end())
             adjList[index2].push_back(index1);
     }
+    size = adjList.size();
+
+    maxdeg = 0;
+    for (const auto &l: adjList) {
+        if (l.size() > maxdeg)
+            maxdeg = l.size();
+    }
 }
 
-int Analyser::findLargestErdosNumber() {
+int Analyser::findMaxErdosNumber() {
     std::cout << "finding tha largest Erdos number...\n";
+    int visited = 0;
     std::queue<int> q;
     q.push(ErdosIndex);
-    std::vector<int> dist(adjList.size(), INT32_MAX);
+    std::vector<int> dist(size, INT32_MAX);
     dist[ErdosIndex] = 0;
     while (!q.empty()) {
+        visited++;
         int cur = q.front();
         q.pop();
         for (auto v: adjList[cur]) {
@@ -50,5 +58,6 @@ int Analyser::findLargestErdosNumber() {
             q.push(v);
         }
     }
+    std::cout << visited << " " << size << "\n";
     return *std::max_element(dist.begin(), dist.end());
 }

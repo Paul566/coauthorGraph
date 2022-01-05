@@ -17,16 +17,19 @@
 using json = nlohmann::json;
 
 class Analyser {
-
-    std::vector<std::vector<int>> adjList;
+private:
+    //number of vertices
     std::string ErdosId = "cVeVZ1YAAAAJ"; //Google Scholar ID of Paul Erdos
     int ErdosIndex;
-
+protected:
+    std::vector<std::vector<int>> adjList;
 public:
+    int size;
+    int maxdeg;
 
     explicit Analyser(const std::string &filename);
-    int findLargestErdosNumber();   //just BFS starting from Erdos
 
+    int findMaxErdosNumber();   //just BFS starting from Erdos
 };
 
 
