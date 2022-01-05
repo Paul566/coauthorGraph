@@ -68,7 +68,7 @@ getAdjList(std::vector<std::pair<std::string, std::string>> edges, std::unordere
     return a;
 }
 
-int findLargestErdosNumber(std::vector<std::vector<int>> adjList, int erdos) {
+int findLargestErdosNumber(std::vector<std::vector<int>> adjList, int erdos, std::vector<std::string> nodeIds) {
     std::queue<int> q;
     q.push(erdos);
     std::vector<int> dist(adjList.size(), INT32_MAX);
@@ -84,10 +84,14 @@ int findLargestErdosNumber(std::vector<std::vector<int>> adjList, int erdos) {
         }
     }
     int ans = 0;
+    int num = 0;
     for (int i = 0; i < adjList.size(); i++) {
-        if (ans < dist[i])
+        if (ans < dist[i]) {
             ans = dist[i];
+            num = i;
+        }
     }
+    std::cout << nodeIds[num] << std::endl;
     return ans;
 }
 
@@ -215,8 +219,8 @@ int main() {
     std::cout << idsToNames.size() << " nodes\n";
     std::cout << edges.size() << " edges\n";
     std::string erdosId = "cVeVZ1YAAAAJ";
-    std::cout << "Max Erdos numer " << findLargestErdosNumber(adjList, idsToIndices[erdosId]) << '\n';
-    writeV2L2(adjList);
+    std::cout << "Max Erdos numer " << findLargestErdosNumber(adjList, idsToIndices[erdosId], nodeIds) << '\n';
+    //writeV2L2(adjList);
     auto v2 = readV2();
     auto sd = spectralDecomposition(adjList, v2);
     std::cout << "Cheeger constant is less or equals to " << sd.first << " with " << sd.second
