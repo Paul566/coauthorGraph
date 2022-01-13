@@ -5,4 +5,5 @@ Eigen
 cmake-build-debug
 json.hpp
 CMakeLists.txt
-queue.json
+*.json
+tmp

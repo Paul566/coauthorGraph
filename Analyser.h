@@ -27,9 +27,13 @@ public:
     int size;
     int maxdeg;
 
-    explicit Analyser(const std::string &filename);
+    explicit Analyser(const std::string &edges_filename);
+    Analyser(const std::string &adjList_filename, const std::string &ErdosIndex_filename);
 
     int findMaxErdosNumber();   //just BFS starting from Erdos
+    float computeConductanceManually(std::vector<bool> partitition);
+    void saveAdjList(const std::string& filename);
+    void saveErdosIndex(const std::string& filename) const;
 };
 
 

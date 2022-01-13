@@ -1,9 +1,9 @@
 #include "Analyser.h"
 
-Analyser::Analyser(const std::string &filename) {
+Analyser::Analyser(const std::string &edges_filename) {
     std::cout << "creating the adjacency list...\n";
     json input;
-    std::ifstream file(filename, std::ifstream::binary);
+    std::ifstream file(edges_filename, std::ifstream::binary);
     file >> input;
     std::vector<std::pair<std::string, std::string>> edges = input.get<std::vector<std::pair<std::string, std::string>>>();
     std::unordered_map<std::string, int> idsToIndices;
@@ -58,6 +58,57 @@ int Analyser::findMaxErdosNumber() {
             q.push(v);
         }
     }
-    std::cout << visited << " " << size << "\n";
     return *std::max_element(dist.begin(), dist.end());
+}
+
+float Analyser::computeConductanceManually(std::vector<bool> partitition) {
+    int cutEdges = 0;
+    int trueSize = 0;
+    for (int i = 0; i < size; i++) {
+        trueSize += partitition[i];
+        for (int v: adjList[i]) {
+            if (partitition[v] != partitition[i])
+                cutEdges++;
+        }
+    }
+    return float(cutEdges) / 2 / std::min(trueSize, size - trueSize);
+}
+
+void Analyser::saveAdjList(const std::string &filename) {
+    std::ofstream output;
+    output.open(filename);
+    for (int i = 0; i < size; i++) {
+        for (int to: adjList[i])
+            output << to << " ";
+        output << '\n';
+    }
+    output.close();
+}
+
+void Analyser::saveErdosIndex(const std::string &filename) const {
+    std::ofstream output;
+    output.open(filename);
+    output << ErdosIndex;
+    output.close();
+}
+
+Analyser::Analyser(const std::string &adjList_filename, const std::string &ErdosIndex_filename) {
+    std::ifstream input1;
+    input1.open(ErdosIndex_filename);
+    input1 >> ErdosIndex;
+    maxdeg = 0;
+
+    std::ifstream input2;
+    input2.open(adjList_filename);
+    std::string line;
+    while (getline(input2, line)) {
+        adjList.push_back(std::vector<int>(0));
+        std::stringstream iss(line);
+        int to;
+        while (iss >> to)
+            adjList.back().push_back(to);
+        if (adjList.back().size() > maxdeg)
+            maxdeg = adjList.back().size();
+    }
+    size = adjList.size();
 }
