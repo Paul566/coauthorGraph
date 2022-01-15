@@ -19,16 +19,18 @@ private:
         }
     };
 
-    void getSpecData(const std::string &specDataFilename);
-
 public:
-    double lambda2; //the second smallest eigenvalue of the normalized Laplacian matrix
-    double lambda1; //should be around zero
-    std::vector<float> v2; //the eigenvector corresponding to lambda2
-    SpectralPartitioner(const std::string &specDataFilename, const std::string &adjList_filename,
-                        const std::string &ErdosIndex_filename);
+    SpectralPartitioner(const std::string &adjList_filename, const std::string &ErdosIndex_filename);
 
-    std::tuple<float, int> getPartition(int threshold = 0);
+    std::tuple<float, std::vector<bool>> getPartition(int threshold, const std::vector<float> &_v2);
+
+    std::tuple<float, std::vector<float>> getSpecData(std::vector<int> ignoreList);
+
+    std::tuple<float, std::vector<float>> getL2V2(std::vector<std::vector<int>> &_adjList);
+
+    void saveSpecData(const std::string &specDataFilename, const std::vector<float> &_v2);
+
+    std::vector<float> readV2(const std::string &filename);
 };
 
 

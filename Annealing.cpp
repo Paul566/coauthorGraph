@@ -4,8 +4,9 @@
 
 #include "Annealing.h"
 
-Annealing::Annealing(const std::string &filename, float _initTemp, long _numSteps,
-                     long _updateTempEveryThisManyTimesteps) : Analyser(filename) {
+Annealing::Annealing(const std::string &adjList_filename, const std::string &ErdosIndex_filename, float _initTemp,
+                     long _numSteps, long _updateTempEveryThisManyTimesteps) : Analyser(adjList_filename,
+                                                                                        ErdosIndex_filename) {
     std::random_device rd;
     gen = std::mt19937(rd());
     stepChoiceDistribution = std::uniform_real_distribution<>(0., 1.);
@@ -78,12 +79,4 @@ void Annealing::makeStep() {
 
 bool Annealing::doWeAccept(float newResult) {
     return expf((curResult - newResult) / curTemp) > stepChoiceDistribution(gen);
-}
-
-void Annealing::saveState(const std::string& filename) {
-    std::ofstream output;
-    output.open(filename);
-    for (int i = 0; i < size; i++)
-        output << guess[i] << "\n";
-    output.close();
 }

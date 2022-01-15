@@ -34,9 +34,11 @@ Analyser::Analyser(const std::string &edges_filename) {
     size = adjList.size();
 
     maxdeg = 0;
+    volume = 0;
     for (const auto &l: adjList) {
         if (l.size() > maxdeg)
             maxdeg = l.size();
+        volume += l.size();
     }
 }
 
@@ -63,15 +65,16 @@ int Analyser::findMaxErdosNumber() {
 
 float Analyser::computeConductanceManually(std::vector<bool> partitition) {
     int cutEdges = 0;
-    int trueSize = 0;
+    int partVolume = 0;
     for (int i = 0; i < size; i++) {
-        trueSize += partitition[i];
+        if (partitition[i])
+            partVolume += adjList[i].size();
         for (int v: adjList[i]) {
             if (partitition[v] != partitition[i])
                 cutEdges++;
         }
     }
-    return float(cutEdges) / 2 / std::min(trueSize, size - trueSize);
+    return float(cutEdges) / 2 / std::min(partVolume, volume - partVolume);
 }
 
 void Analyser::saveAdjList(const std::string &filename) {
@@ -97,6 +100,7 @@ Analyser::Analyser(const std::string &adjList_filename, const std::string &Erdos
     input1.open(ErdosIndex_filename);
     input1 >> ErdosIndex;
     maxdeg = 0;
+    volume = 0;
 
     std::ifstream input2;
     input2.open(adjList_filename);
@@ -109,6 +113,15 @@ Analyser::Analyser(const std::string &adjList_filename, const std::string &Erdos
             adjList.back().push_back(to);
         if (adjList.back().size() > maxdeg)
             maxdeg = adjList.back().size();
+        volume += adjList.back().size();
     }
     size = adjList.size();
+}
+
+void Analyser::saveGuess(const std::string &filename, std::vector<bool> _guess) {
+    std::ofstream output;
+    output.open(filename);
+    for (int i = 0; i < size; i++)
+        output << _guess[i] << "\n";
+    output.close();
 }

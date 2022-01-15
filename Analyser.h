@@ -21,11 +21,10 @@ private:
     //number of vertices
     std::string ErdosId = "cVeVZ1YAAAAJ"; //Google Scholar ID of Paul Erdos
     int ErdosIndex;
-protected:
-    std::vector<std::vector<int>> adjList;
 public:
     int size;
     int maxdeg;
+    int volume;
 
     explicit Analyser(const std::string &edges_filename);
     Analyser(const std::string &adjList_filename, const std::string &ErdosIndex_filename);
@@ -34,6 +33,9 @@ public:
     float computeConductanceManually(std::vector<bool> partitition);
     void saveAdjList(const std::string& filename);
     void saveErdosIndex(const std::string& filename) const;
+    void saveGuess(const std::string &filename, std::vector<bool> _guess);
+
+    std::vector<std::vector<int>> adjList;
 };
 
 

@@ -9,13 +9,10 @@ public:
     double bestResult;
     int bestResultSize;
 
-    Annealing(const std::string &filename, float _initTemp = 1e-6, long _numSteps = 10000000000,
-              long _updateTempEveryThisManyTimesteps = 1000);
+    Annealing(const std::string &adjList_filename, const std::string &ErdosIndex_filename, float _initTemp = 1e-6,
+              long _numSteps = 10000000000, long _updateTempEveryThisManyTimesteps = 1000);
 
     void anneal();
-
-    void saveState(const std::string& filename);
-
 
 private:
     std::mt19937 gen;
