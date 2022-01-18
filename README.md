@@ -20,8 +20,7 @@ Maximal Erdos number (the maximal distance from Paul Erdos to some other node): 
 
 My objective was to find out if the coauthorship graph is decently connected. There are reasons to believe that, for
 example, the physicists - non-physicists or Chinese - non-Chinese partition would split the graph into poorly connected
-parts. Let's try to minimize the conductance (a.k.a. the Cheeger constant) of the graph h, which measures the '
-bottleneckedness' of the graph (defined, for
+parts. Let's try to minimize the conductance (a.k.a. the Cheeger constant) of the graph h, which measures the 'bottleneckedness' of the graph (defined, for
 example, [here](https://orion.math.iastate.edu/butler/PDF/spectra_lecture_3.pdf)). A small conductance means the
 presence of two relatively large poorly connected communities. Determining the conductance is an NP-hard problem, so
 trying to implement an exact algorithm is a hopeless idea. First, I have implemented two relatively standard approaches.
@@ -37,15 +36,15 @@ partition with conductance 0.0133 and the sizes of parts 37 and 969522. It turne
 people that are connected with an outside world with just one edge. That's not exactly what I was looking for. If we
 demand the sizes of parts be at least 10,000, we get a partition of conductance 0.141 and sizes of the parts 605255 and 364304. <br />
 
-Since the community of 37 people strongly affects the second eigenvector of the Laplacian matrix, I also tried to
+Since the community of 37 people may strongly affect the second eigenvector of the Laplacian matrix, I also tried to
 exclude the 37-community and recalculate the second eigenvector of the Laplacian matrix. Manually setting the
-coordinates of the vector that would correspond to the vertices from the 37-community to zeros, we got a partition of
+coordinates of the vector that would correspond to the vertices from the 37-community to zeros, I got a partition of
 the conductance 0.0579 and sizes of the parts 3228 and 966331. This is again not exactly what I wanted to see. If we
 limit the search to the partitions with the sizes of the parts greater than 10,000, we would get a partition of
 conductance 0.250 and sizes of the parts 318612 and 650947. <br />
 There is also a nice property called Cheeger's inequality that allows one to set bounds for the conductance h using the
 second-smallest eigenvalue of
-the [normalized Laplacian matrix] https://en.wikipedia.org/wiki/Laplacian_matrix#Symmetric_normalized_Laplacian) of the
+the [normalized Laplacian matrix](https://en.wikipedia.org/wiki/Laplacian_matrix#Symmetric_normalized_Laplacian) of the
 graph.
 <br />
 <img src="https://latex.codecogs.com/gif.latex?\frac{\lambda_2}{2}\leq&space;h\leq\sqrt{2\lambda_2}" /> <br />
