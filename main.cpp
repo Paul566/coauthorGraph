@@ -7,9 +7,22 @@ int main() {
     //Analyser an = Analyser("../files/adjList", "../files/ErdosIndex");
     //std::cout << an.findMaxErdosNumber() << '\n';
 
-    //Annealing ann = Annealing("../files/edges.json");
-    //ann.anneal();
-    //std::cout << ann.bestResult << ' ' << ann.bestResultSize << '\n';
+
+    /*
+    //-------------------------------annealing
+
+    Annealing ann = Annealing("../files/adjList", "../files/ErdosIndex");
+    ann.anneal();
+    ann.saveGuess("../files/annealingPartition", ann.bestGuess);
+    int minSize = 0;
+    for (auto b : ann.bestGuess)
+        minSize += b;
+    std::cout << "conductance:\t" << ann.bestConductance << "\tsizes of the parts:\t" << minSize << ' ' << ann.size - minSize << '\n';
+    */
+
+
+
+    //-----------------------------spectral partition------------------------------------
 
     SpectralPartitioner sp("../files/adjList", "../files/ErdosIndex");
     double conductance;
@@ -25,6 +38,7 @@ int main() {
     std::cout << "conductance:\t" << conductance << "\tsizes of the parts:\t" << minSize << ' ' << sp.size - minSize << '\n';
 
     std::tie(conductance,  guess) = sp.getPartition(10000, v2);
+    sp.saveGuess("../files/spectralPartition>10000", guess);
     minSize = 0;
     for (auto b : guess)
         minSize += b;
@@ -38,16 +52,19 @@ int main() {
 
     v2 = sp.readV2("../files/v2-37");
     std::tie(conductance,  guess) = sp.getPartition(0, v2);
+    sp.saveGuess("../files/spectralPartition-37", guess);
     minSize = 0;
     for (auto b : guess)
         minSize += b;
-    sp.saveGuess("../files/spectralPartition-37", guess);
     std::cout << "conductance:\t" << conductance << "\tsizes of the parts:\t" << minSize << ' ' << sp.size - minSize << '\n';
 
     std::tie(conductance,  guess) = sp.getPartition(10000, v2);
+    sp.saveGuess("../files/spectralPartition-37>10000", guess);
     minSize = 0;
     for (auto b : guess)
         minSize += b;
     std::cout << "conductance:\t" << conductance << "\tsizes of the parts:\t" << minSize << ' ' << sp.size - minSize << '\n';
     return 0;
+
+
 }

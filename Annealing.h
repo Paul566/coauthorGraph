@@ -6,10 +6,10 @@
 
 class Annealing : public Analyser {
 public:
-    double bestResult;
-    int bestResultSize;
+    double bestConductance;
+    std::vector<bool> bestGuess;
 
-    Annealing(const std::string &adjList_filename, const std::string &ErdosIndex_filename, float _initTemp = 1e-6,
+    Annealing(const std::string &adjList_filename, const std::string &ErdosIndex_filename, float _initTemp = 1e-5,
               long _numSteps = 10000000000, long _updateTempEveryThisManyTimesteps = 1000);
 
     void anneal();
@@ -23,8 +23,8 @@ private:
     long curStep;
     long numSteps;
     long updateTempEveryThisManyTimesteps;
-    float curResult;
-    int trueSize; //size of the part that marked "true" in guess
+    float curConductance;
+    int trueVolume; //volume of the part that marked "true" in guess
     int curCutEdges;
     std::vector<bool> guess;
 
