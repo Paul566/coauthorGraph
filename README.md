@@ -20,8 +20,7 @@ Maximal Erdos number (the maximal distance from Paul Erdos to some other node): 
 
 My objective was to find out if the coauthorship graph is decently connected. There are reasons to believe that, for
 example, the physicists - non-physicists or Chinese - non-Chinese partition would split the graph into poorly connected
-parts. Let's try to minimize the conductance (a.k.a. the Cheeger constant) of the graph h, which measures the 'bottleneckedness' of the graph (defined, for
-example, [here](https://orion.math.iastate.edu/butler/PDF/spectra_lecture_3.pdf)). A small conductance means the
+parts. Let's try to minimize the conductance (a.k.a. the Cheeger constant) of the graph h. A small conductance means the
 presence of two relatively large poorly connected communities. Determining the conductance is an NP-hard problem, so
 trying to implement an exact algorithm is a hopeless idea. First, I have implemented two relatively standard approaches.
 
