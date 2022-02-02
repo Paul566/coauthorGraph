@@ -2,14 +2,18 @@
 #include "Analyser.h"
 #include "SpectralPartitioner.h"
 #include "Annealing.h"
+#include "FreeStylePartitioner.h"
 
 int main() {
-    //Analyser an = Analyser("../files/adjList", "../files/ErdosIndex");
-    //std::cout << an.findMaxErdosNumber() << '\n';
+    FreeStylePartitioner fsp = FreeStylePartitioner("../files/adjList", "../files/ErdosIndex");
+    std::cout << fsp.tower.back()->size << " " << fsp.getNumberOfLeaves() << '\n';
+    fsp.hideLeaves();
+    std::cout << fsp.tower.back()->size << " " << fsp.getNumberOfLeaves() << "\n";
+    std::cout << fsp.findCutVertices().size() << '\n';
 
 
     /*
-    //-------------------------------annealing
+    //-------------------------------annealing-------------------------------------
 
     Annealing ann = Annealing("../files/adjList", "../files/ErdosIndex");
     ann.anneal();
@@ -23,7 +27,7 @@ int main() {
 
 
     //-----------------------------spectral partition------------------------------------
-
+    /*
     SpectralPartitioner sp("../files/adjList", "../files/ErdosIndex");
     double conductance;
     std::vector<float> v2;
@@ -65,6 +69,6 @@ int main() {
         minSize += b;
     std::cout << "conductance:\t" << conductance << "\tsizes of the parts:\t" << minSize << ' ' << sp.size - minSize << '\n';
     return 0;
-
+    */
 
 }
